@@ -1,4 +1,5 @@
 package Repository;
 
-public class DbMemberRepository {
+public class DbMemberRepository implements MemberRepository{
+
 }
