@@ -1,6 +1,6 @@
-package Dto;
+package app.Dto;
 
-import Entity.Member;
+import app.Entity.Member;
 import lombok.*;
 
 @Getter

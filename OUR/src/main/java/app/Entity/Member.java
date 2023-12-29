@@ -1,6 +1,6 @@
-package Entity;
+package app.Entity;
 
-import Dto.MemberDto;
+import app.Dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +26,15 @@ public class Member {
 
     public static Member toMember(MemberDto memberDto){
         Member member = new Member();
+        member.setPassword(memberDto.getPassword());
+        member.setName(memberDto.getName());
+        member.setAlias(memberDto.getAlias());
+        return member;
+    }
+
+    public static Member toUpdateMember(MemberDto memberDto){
+        Member member = new Member();
+        member.setId(memberDto.getId());
         member.setPassword(memberDto.getPassword());
         member.setName(memberDto.getName());
         member.setAlias(memberDto.getAlias());

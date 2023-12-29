@@ -1,4 +1,4 @@
-package Controller;
+package app.Controller;
 
 public class MemberController {
 }
