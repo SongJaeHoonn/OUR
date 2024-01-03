@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/member")
@@ -38,7 +40,13 @@ public class MemberController {
             return "login";
         }
     }
-
+    @GetMapping("/member/")
+    public String findAll(Model model){
+        List<MemberDto> memberDTOList = memberService.findAll();
+        //어떠한 html로 가져갈 데이터 있다면 model 사용
+        model.addAttribute("memberList", memberDTOList);
+        return "list";
+    }
     @GetMapping("/update")
     public String updateForm(HttpSession session, Model model){
         String alias = (String)session.getAttribute("loginAlias");
