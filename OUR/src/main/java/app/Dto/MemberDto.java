@@ -10,6 +10,7 @@ import lombok.*;
 @ToString
 public class MemberDto {
     private Long id;
+    private String memberId;
     private String password;
     private String name;
     private String alias;
@@ -17,6 +18,7 @@ public class MemberDto {
     public static MemberDto toMemberDto(Member member){
         MemberDto memberDto = new MemberDto();
         memberDto.setId(member.getId());
+        memberDto.setMemberId(member.getMemberId());
         memberDto.setName(member.getName());
         memberDto.setPassword(member.getPassword());
         memberDto.setAlias(member.getAlias());

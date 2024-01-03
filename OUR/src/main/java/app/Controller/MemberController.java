@@ -14,7 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberController {
+
     private final MemberService memberService;
+
     @GetMapping("/save")
     public String saveForm() {
         return "save";
@@ -22,6 +24,7 @@ public class MemberController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute MemberDto memberDto){
+        System.out.println(memberDto);
         memberService.save(memberDto);
         return "login";
     }
@@ -40,7 +43,7 @@ public class MemberController {
             return "login";
         }
     }
-    @GetMapping("/member/")
+    @GetMapping("/")
     public String findAll(Model model){
         List<MemberDto> memberDTOList = memberService.findAll();
         //어떠한 html로 가져갈 데이터 있다면 model 사용

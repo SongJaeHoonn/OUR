@@ -18,6 +18,8 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    private String memberId;
+    @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private String password;
@@ -26,6 +28,7 @@ public class Member {
 
     public static Member toMember(MemberDto memberDto){
         Member member = new Member();
+        member.setMemberId(memberDto.getMemberId());
         member.setPassword(memberDto.getPassword());
         member.setName(memberDto.getName());
         member.setAlias(memberDto.getAlias());
@@ -35,6 +38,7 @@ public class Member {
     public static Member toUpdateMember(MemberDto memberDto){
         Member member = new Member();
         member.setId(memberDto.getId());
+        member.setMemberId(memberDto.getMemberId());
         member.setPassword(memberDto.getPassword());
         member.setName(memberDto.getName());
         member.setAlias(memberDto.getAlias());
