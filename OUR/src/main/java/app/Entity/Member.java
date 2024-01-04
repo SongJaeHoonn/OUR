@@ -15,7 +15,7 @@ import lombok.Setter;
 @Table(name = "member_table")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
     private String memberId;
