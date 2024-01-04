@@ -37,7 +37,7 @@ public class MemberController {
     public String login(@ModelAttribute MemberDto memberDto, HttpSession httpSession){
         MemberDto loginresult = memberService.login(memberDto);
         if(loginresult != null){
-            httpSession.setAttribute("loginAlias", loginresult.getAlias());
+            httpSession.setAttribute("loginMemberId", loginresult.getMemberId());
             return "main";
         }else{
             return "login";
@@ -52,8 +52,8 @@ public class MemberController {
     }
     @GetMapping("/update")
     public String updateForm(HttpSession session, Model model){
-        String alias = (String)session.getAttribute("loginAlias");
-        MemberDto memberDto = memberService.updateForm(alias);
+        String memberId = (String)session.getAttribute("loginMemberId");
+        MemberDto memberDto = memberService.updateForm(memberId);
         model.addAttribute("updateMember", memberDto);
         return "update";
     }
