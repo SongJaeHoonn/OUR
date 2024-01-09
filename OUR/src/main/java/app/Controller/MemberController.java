@@ -37,6 +37,7 @@ public class MemberController {
     public String login(@ModelAttribute MemberDto memberDto, HttpSession httpSession){
         MemberDto loginresult = memberService.login(memberDto);
         if(loginresult != null){
+            httpSession.setAttribute("loginAlias", loginresult.getAlias());
             httpSession.setAttribute("loginMemberId", loginresult.getMemberId());
             return "main";
         }else{
