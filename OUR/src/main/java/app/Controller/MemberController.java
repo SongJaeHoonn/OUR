@@ -59,10 +59,10 @@ public class MemberController {
         return "update";
     }
 
-    @PostMapping ("/update")
+    @PostMapping ("/login")
     public String update(@ModelAttribute MemberDto memberDto){
         memberService.update(memberDto);
-        return "main";
+        return "login";
     }
 
     @GetMapping("/delete/{id}")
