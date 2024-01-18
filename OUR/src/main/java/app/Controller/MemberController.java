@@ -39,9 +39,11 @@ public class MemberController {
         if(loginresult != null){
             httpSession.setAttribute("loginAlias", loginresult.getAlias());
             httpSession.setAttribute("loginMemberId", loginresult.getMemberId());
+            httpSession.setMaxInactiveInterval(600);
+            httpSession.
             return "main";
         }else{
-            return "login";
+            return "redirect:/member/login";
         }
     }
     @GetMapping("/")
@@ -76,7 +78,5 @@ public class MemberController {
         session.invalidate();
         return "index";
     }
-
-
 
 }
