@@ -4,6 +4,7 @@ import app.Dto.MemberDto;
 import app.Service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,8 @@ public class MemberController {
     @PostMapping("/save")
     public String save(@ModelAttribute MemberDto memberDto){
         System.out.println(memberDto);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         memberService.save(memberDto);
         return "login";
     }
@@ -40,7 +43,6 @@ public class MemberController {
             httpSession.setAttribute("loginAlias", loginresult.getAlias());
             httpSession.setAttribute("loginMemberId", loginresult.getMemberId());
             httpSession.setMaxInactiveInterval(600);
-            httpSession.
             return "main";
         }else{
             return "redirect:/member/login";
