@@ -3,10 +3,14 @@ package app.Controller;
 import app.Dto.MemberDto;
 import app.Service.MemberService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,16 +21,15 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-
+    private final PasswordEncoder passwordEncoder;
     @GetMapping("/save")
     public String saveForm() {
         return "save";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute MemberDto memberDto){
+    public String save(@Valid @ModelAttribute MemberDto memberDto){
         System.out.println(memberDto);
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         memberService.save(memberDto);
         return "login";
@@ -51,7 +54,6 @@ public class MemberController {
     @GetMapping("/")
     public String findAll(Model model){
         List<MemberDto> memberDTOList = memberService.findAll();
-        //어떠한 html로 가져갈 데이터 있다면 model 사용
         model.addAttribute("memberList", memberDTOList);
         return "list";
     }
