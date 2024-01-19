@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>main</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+      color: white; /* Changed text color to white */
+    }
+
+    .search {
+      position: relative;
+      width: 300px;
+      margin: 20px auto;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 40px);
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 14px;
+      outline: none;
+      color: black; /* Changed text color to black */
+    }
+
+    input[type="text"]::placeholder {
+      color: #aaa;
+    }
+
+    .search img {
+      position: absolute;
+      width: 17px;
+      top: 13px;
+      right: 22px;
+      margin: 0;
+    }
+
+    a {
+      display: block;
+      text-align: right;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: black; /* Changed link color to black */
+    }
+
+    a:hover {
+      color: #555;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .write-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: black; /* Changed link color to black */
+      background-color: #007bff;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+
+    .write-link:hover {
+      background-color: #0056b3;
+    }
+
+    .content {
+      width: 80%;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+<p th:text="${session.loginAlias}" style="background-color: black; color: white;"></p>
+<div class="search">
+  <input type="text" placeholder="검색어 입력">
+  <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+</div>
+<a href="/member/update">내 정보 수정하기</a>
+<a href="/member/logout">로그아웃</a>
+<a href="/our/create" class="write-link">글 작성</a>
+<div class="content">
+  <p>글 목록입니다</p>
+  <!-- Add your content here -->
+</div>
+</body>
+</html>
