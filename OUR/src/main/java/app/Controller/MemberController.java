@@ -33,6 +33,7 @@ public class MemberController {
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         memberService.save(memberDto);
         return "login";
+
     }
 
     @GetMapping("/login")

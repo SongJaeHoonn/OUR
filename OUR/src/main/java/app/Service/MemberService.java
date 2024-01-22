@@ -5,6 +5,7 @@ import app.Entity.Member;
 import app.Repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
+    private final PasswordEncoder passwordEncoder;
     public void save(MemberDto memberDto) {
         Member member = Member.toMember(memberDto);
         memberRepository.save(member);
@@ -27,7 +28,7 @@ public class MemberService {
         Optional<Member> byMemberId = memberRepository.findByMemberId(memberDto.getMemberId());
         if(byMemberId.isPresent()){
             Member member = byMemberId.get();
-            if(member.getPassword().equals(memberDto.getPassword())){
+            if(member.getMemberId().equals(memberDto.getMemberId())){
                 MemberDto dto = MemberDto.toMemberDto(member);
                 return dto;
             }else{
