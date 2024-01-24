@@ -10,10 +10,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,8 +30,18 @@ public class MemberController {
     }
 
     @PostMapping("/save")
-    public String save(@Valid @ModelAttribute MemberDto memberDto){
-        System.out.println(memberDto);
+    public String save(@Valid @ModelAttribute MemberDto memberDto, Errors errors, Model model){
+        if (errors.hasErrors()) {
+            /* 회원가입 실패시 입력 데이터 값을 유지 */
+            model.addAttribute("memberDto", memberDto);
+            /* 유효성 통과 못한 필드와 메시지를 핸들링 */
+            Map<String, String> validatorResult = memberService.validateHandling(errors);
+            for (String key : validatorResult.keySet()) {
+                model.addAttribute(key, validatorResult.get(key));
+            }
+            /* 회원가입 페이지로 다시 리턴 */
+            return "save";
+        }
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         memberService.save(memberDto);
         return "login";
