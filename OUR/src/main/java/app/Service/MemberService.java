@@ -26,10 +26,15 @@ public class MemberService {
 
 
     public MemberDto login(MemberDto memberDto) {
+        String lawPassword = memberDto.getPassword();
+        memberDto.setPassword(passwordEncoder.encode(lawPassword));
+        String encodedPassword = memberDto.getPassword();
         Optional<Member> byMemberId = memberRepository.findByMemberId(memberDto.getMemberId());
         if(byMemberId.isPresent()){
             Member member = byMemberId.get();
-            if(member.getMemberId().equals(memberDto.getMemberId())){
+            System.out.println(memberDto.getPassword());
+            System.out.println(member.getPassword());
+            if(passwordEncoder.matches(lawPassword, encodedPassword)){
                 MemberDto dto = MemberDto.toMemberDto(member);
                 return dto;
             }else{
