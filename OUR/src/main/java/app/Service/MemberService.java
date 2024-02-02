@@ -19,29 +19,35 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+
     public void save(MemberDto memberDto) {
+        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         Member member = Member.toMember(memberDto);
         memberRepository.save(member);
     }
 
 
     public MemberDto login(MemberDto memberDto) {
-        String lawPassword = memberDto.getPassword();
-        memberDto.setPassword(passwordEncoder.encode(lawPassword));
-        String encodedPassword = memberDto.getPassword();
         Optional<Member> byMemberId = memberRepository.findByMemberId(memberDto.getMemberId());
         if(byMemberId.isPresent()){
             Member member = byMemberId.get();
-            System.out.println(memberDto.getPassword());
-            System.out.println(member.getPassword());
-            if(passwordEncoder.matches(lawPassword, encodedPassword)){
-                MemberDto dto = MemberDto.toMemberDto(member);
-                return dto;
+            String lawPassword = memberDto.getPassword();
+            String encodedPassword = member.getPassword();
+            if(validationPW(lawPassword, encodedPassword)){
+                return MemberDto.toMemberDto(member);
             }else{
                 return null;
             }
         }else{
             return null;
+        }
+    }
+
+    public Boolean validationPW(String lawPassword, String encodedPassword){
+        if(passwordEncoder.matches(lawPassword, encodedPassword)){
+            return true;
+        }else{
+            return false;
         }
     }
 

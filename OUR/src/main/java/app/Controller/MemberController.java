@@ -44,7 +44,6 @@ public class MemberController {
             // 회원가입 페이지로 다시 리턴
             return "save";
         }
-        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         memberService.save(memberDto);
         return "login";
     }
