@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,26 +26,22 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     @GetMapping("/save")
-    public String saveForm() {
+    public String saveForm(Model model) {
+        model.addAttribute("memberDto", new MemberDto());
         return "save";
     }
 
     @PostMapping("/save")
-    public String save(@Valid @ModelAttribute MemberDto memberDto, Errors errors, Model model){
-        if (errors.hasErrors()) {
-            // 회원가입 실패시 입력 데이터 값을 유지
-            model.addAttribute("memberDto", memberDto);
-
-            // 유효성 검사 에러 처리
-            Map<String, String> validatorResult = memberService.validateHandling(errors);
-            for (String key : validatorResult.keySet()) {
-                model.addAttribute(key, validatorResult.get(key));
-            }
-
-            // 회원가입 페이지로 다시 리턴
+    public String save(@Valid MemberDto memberDto, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()) {
             return "save";
         }
-        memberService.save(memberDto);
+        try{
+            memberService.save(memberDto);
+        }catch(IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "save";
+        }
         return "login";
     }
 
@@ -61,6 +58,7 @@ public class MemberController {
             httpSession.setMaxInactiveInterval(600);
             return "main";
         }else{
+
             return "redirect:/member/login";
         }
     }
