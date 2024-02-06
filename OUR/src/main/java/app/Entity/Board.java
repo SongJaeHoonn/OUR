@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Builder
@@ -17,8 +17,15 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long board_id;
 
-    @JoinColumn(name = "id")
-    String id;
+    @Column(nullable = false)
+    String head;
 
+    @Column(nullable = false)
+    String text;
 
+    @JoinColumn(name = "member", referencedColumnName = "memberId")
+    String member;
+
+    @Column(nullable = false)
+    Date date;
 }
