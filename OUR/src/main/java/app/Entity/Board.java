@@ -1,31 +1,52 @@
 package app.Entity;
 
+import app.Dto.BoardDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Date;
 
 @Entity
-@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "board")
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long board_id;
+    private Long boardId;
 
     @Column(nullable = false)
-    String head;
+    private String head;
 
     @Column(nullable = false)
-    String text;
+    private String text;
 
     @JoinColumn(name = "member", referencedColumnName = "memberId")
-    String member;
+    private String member;
 
     @Column(nullable = false)
-    Date date;
+    private Date date;
+
+    public Board toBoard(BoardDto boardDto){
+        Board board = new Board();
+        board.setBoardId(boardDto.getBoardId());
+        board.setHead(boardDto.getHead());
+        board.setText(boardDto.getText());
+        board.setMember(boardDto.getMember());
+        board.setDate(boardDto.getDate());
+        return board;
+    }
+
+    public Board toUpdateBoard(BoardDto boardDto){
+        Board board = new Board();
+        board.setBoardId(boardDto.getBoardId());
+        board.setHead(boardDto.getHead());
+        board.setText(boardDto.getText());
+        board.setMember(boardDto.getMember());
+        board.setDate(boardDto.getDate());
+        return board;
+    }
+
 }
