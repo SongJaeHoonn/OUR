@@ -52,9 +52,30 @@
 </head>
 <body>
 <h2>글 작성</h2>
-<form>
+<form action="/our/main" method="post" >
     <textarea placeholder="글을 작성해주세요"></textarea>
+
     <input type="submit" value="작성">
+</form>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 작성 페이지</title>
+</head>
+<body>
+<h1>글 작성하기</h1>
+<form action="post_handler.php" method="post">
+    <label for="title">제목:</label><br>
+    <input type="text" id="title" name="title" required><br><br>
+    <label for="content">내용:</label><br>
+    <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+    <input type="submit" value="작성하기">
 </form>
 </body>
 </html>

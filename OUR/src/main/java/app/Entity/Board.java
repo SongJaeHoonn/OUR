@@ -29,7 +29,7 @@ public class Board {
     @Column(nullable = false)
     private Date date;
 
-    public Board toBoard(BoardDto boardDto){
+    public static Board toBoard(BoardDto boardDto){
         Board board = new Board();
         board.setBoardId(boardDto.getBoardId());
         board.setHead(boardDto.getHead());
@@ -39,7 +39,7 @@ public class Board {
         return board;
     }
 
-    public Board toUpdateBoard(BoardDto boardDto){
+    public static Board toUpdateBoard(BoardDto boardDto){
         Board board = new Board();
         board.setBoardId(boardDto.getBoardId());
         board.setHead(boardDto.getHead());
