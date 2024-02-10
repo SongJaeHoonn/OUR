@@ -1,64 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>create</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>create</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            background-color: #f4f4f4;-->
+<!--            margin: 0;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            height: 100vh;-->
+<!--        }-->
 
-        h2 {
-            text-align: center;
-            color: #333;
-        }
+<!--        h2 {-->
+<!--            text-align: center;-->
+<!--            color: #333;-->
+<!--        }-->
 
-        textarea {
-            width: 60%;
-            height: 200px;
-            padding: 10px;
-            margin: 20px auto;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-            display: block;
-            resize: none;
-        }
+<!--        textarea {-->
+<!--            width: 60%;-->
+<!--            height: 200px;-->
+<!--            padding: 10px;-->
+<!--            margin: 20px auto;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 5px;-->
+<!--            font-size: 16px;-->
+<!--            outline: none;-->
+<!--            display: block;-->
+<!--            resize: none;-->
+<!--        }-->
 
-        input[type="submit"] {
-            display: block;
-            margin: 0 auto;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+<!--        input[type="submit"] {-->
+<!--            display: block;-->
+<!--            margin: 0 auto;-->
+<!--            padding: 10px 20px;-->
+<!--            border: none;-->
+<!--            border-radius: 5px;-->
+<!--            font-size: 16px;-->
+<!--            background-color: #007bff;-->
+<!--            color: #fff;-->
+<!--            cursor: pointer;-->
+<!--            transition: background-color 0.3s ease;-->
+<!--        }-->
 
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-<h2>글 작성</h2>
-<form action="/our/main" method="post" >
-    <textarea placeholder="글을 작성해주세요"></textarea>
+<!--        input[type="submit"]:hover {-->
+<!--            background-color: #0056b3;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>글 작성</h2>-->
+<!--<form action="/our/main" method="post" >-->
+<!--    <textarea placeholder="글을 작성해주세요"></textarea>-->
 
-    <input type="submit" value="작성">
-</form>
-</body>
-</html>
+<!--    <input type="submit" value="작성">-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
 
 
 <!DOCTYPE html>
@@ -70,11 +70,11 @@
 </head>
 <body>
 <h1>글 작성하기</h1>
-<form action="post_handler.php" method="post">
-    <label for="title">제목:</label><br>
+<form action="/our/main" method="post">
+    <label for="title">제목</label><br>
     <input type="text" id="title" name="title" required><br><br>
-    <label for="content">내용:</label><br>
-    <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+    <label for="text">내용</label><br>
+    <textarea id="text" name="text" rows="4" cols="50" placeholder="내용을 입력하세요" required></textarea><br><br>
     <input type="submit" value="작성하기">
 </form>
 </body>

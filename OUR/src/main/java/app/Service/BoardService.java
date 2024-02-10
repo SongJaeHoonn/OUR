@@ -1,7 +1,9 @@
 package app.Service;
 
 import app.Dto.BoardDto;
+import app.Dto.MemberDto;
 import app.Entity.Board;
+import app.Entity.Member;
 import app.Repository.BoardRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -9,6 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +33,13 @@ public class BoardService {
         boardRepository.deleteById(boardId);
     }
 
-
+    public List<BoardDto> findAll() {
+        List<Board> boardEntityList = boardRepository.findAll();
+        List<BoardDto> boardDtoList = new ArrayList<>();
+        for(Board board : boardEntityList){
+            boardDtoList.add(BoardDto.toBoardDto(board));
+        }
+        return boardDtoList;
+    }
 
 }

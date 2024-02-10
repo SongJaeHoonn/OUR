@@ -49,6 +49,7 @@ public class MemberController {
     public String loginForm(){
         return "login";
     }
+
     @PostMapping ("/our")
     public String login(@ModelAttribute MemberDto memberDto, HttpSession httpSession){
         MemberDto loginresult = memberService.login(memberDto);
