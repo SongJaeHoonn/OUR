@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@SessionAttributes({"loginAlias", "loginMemberId"})
 @RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberController {
@@ -52,12 +53,12 @@ public class MemberController {
 
     @PostMapping ("/our")
     public String login(@ModelAttribute MemberDto memberDto, HttpSession httpSession){
-        MemberDto loginresult = memberService.login(memberDto);
-        if(loginresult != null){
-            httpSession.setAttribute("loginAlias", loginresult.getAlias());
-            httpSession.setAttribute("loginMemberId", loginresult.getMemberId());
+        MemberDto loginResult = memberService.login(memberDto);
+        if(loginResult != null){
+            httpSession.setAttribute("loginAlias", loginResult.getAlias());
+            httpSession.setAttribute("loginMemberId", loginResult.getMemberId());
             httpSession.setMaxInactiveInterval(600);
-            return "main";
+            return "redirect:/our/main";
         }else{
 
             return "redirect:/member/login";
@@ -96,3 +97,4 @@ public class MemberController {
     }
 
 }
+
