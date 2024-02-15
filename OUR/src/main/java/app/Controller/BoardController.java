@@ -1,6 +1,7 @@
 package app.Controller;
 import app.Dto.BoardDto;
 import app.Dto.MemberDto;
+import app.Entity.Board;
 import app.Service.BoardService;
 import app.Service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +20,6 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
-    private final MemberService memberService;
 
     @GetMapping("/create")
     public String createForm() {
@@ -46,6 +46,15 @@ public class BoardController {
         model.addAttribute("boardList", boardDtoList);
         return "main";
     }
+
+    @GetMapping("/view")
+    public String view(@RequestParam("id") Long boardId, Model model){
+        BoardDto boardDto = boardService.findById(boardId);
+        model.addAttribute("board", boardDto);
+        return "view";
+    }
+
+
 }
 
 
