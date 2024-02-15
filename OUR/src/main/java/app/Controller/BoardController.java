@@ -27,7 +27,9 @@ public class BoardController {
     }
 
     @PostMapping("/main")
-    public String create(BoardDto boardDto) {
+    public String create(BoardDto boardDto, HttpSession session) {
+        String member = (String) session.getAttribute("loginMemberId");
+        boardDto.setMember(member);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         // Timestamp를 java.sql.Date로 변환합니다.
         Date date = new Date(timestamp.getTime());
