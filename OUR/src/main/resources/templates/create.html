@@ -70,7 +70,9 @@
 </head>
 <body>
 <h1>글 작성하기</h1>
-<form action="/our/main" method="post">
+<form action="/our/main" method="post" enctype="multipart/form-data">
+    <label for="file">파일</label><br>
+    <input type="file" id="file" name="file"><br>
     <label for="head">제목</label><br>
     <input type="text" id="head" name="head" required><br><br>
     <label for="text">내용</label><br>

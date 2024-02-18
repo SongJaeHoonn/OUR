@@ -29,6 +29,12 @@ public class Board {
     @Column(nullable = false)
     private Date date;
 
+    @Column
+    private String fileName;
+
+    @Column
+    private String filePath;
+
     public static Board toBoard(BoardDto boardDto){
         Board board = new Board();
         board.setBoardId(boardDto.getBoardId());
@@ -36,6 +42,8 @@ public class Board {
         board.setText(boardDto.getText());
         board.setMember(boardDto.getMember());
         board.setDate(boardDto.getDate());
+        board.setFileName(boardDto.getFileName());
+        board.setFilePath(boardDto.getFilePath());
         return board;
     }
 
