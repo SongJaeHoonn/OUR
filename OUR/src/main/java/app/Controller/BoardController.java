@@ -31,7 +31,7 @@ public class BoardController {
     public String create(BoardDto boardDto, HttpSession session, MultipartFile file) throws IOException {
 
         String member = (String) session.getAttribute("loginMemberId");
-        boardDto.setMember(member);
+        System.out.println(member);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         // Timestamp를 java.sql.Date로 변환합니다.
         Date date = new Date(timestamp.getTime());
@@ -55,9 +55,6 @@ public class BoardController {
         BoardDto boardDto = boardService.findById(boardId);
 
         model.addAttribute("board", boardDto);
-        System.out.println(boardDto.getMember());
-        System.out.println(boardDto.getFileName());
-        System.out.println(boardDto.getFilePath());
         return "view";
     }
 
