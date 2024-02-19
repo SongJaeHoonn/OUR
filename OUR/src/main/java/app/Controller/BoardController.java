@@ -58,6 +58,12 @@ public class BoardController {
         return "view";
     }
 
+    @GetMapping("/search")
+    public String searchList(@RequestParam("query") String query, Model model){
+        List<BoardDto> list = boardService.findByHead(query);
+        model.addAttribute("boardList", list);
+        return "searchList";
+    }
 
 
 }

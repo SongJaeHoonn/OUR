@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -58,6 +59,16 @@ public class BoardService {
     public BoardDto findById(Long BoardId){
         Optional<Board> board = boardRepository.findById(BoardId);
         return board.map(BoardDto::toBoardDto).orElse(null);
+    }
+
+    public List<BoardDto> findByHead(String head){
+        List<Board> list = new ArrayList<>();
+        List<BoardDto> finalList = new ArrayList<>();
+        list = boardRepository.findByHeadLike(head);
+        for(Board board : list){
+            finalList.add(BoardDto.toBoardDto(board));
+        }
+        return finalList;
     }
 
 }
