@@ -31,7 +31,6 @@ public class BoardController {
     public String create(BoardDto boardDto, HttpSession session, MultipartFile file) throws IOException {
 
         String member = (String) session.getAttribute("loginMemberId");
-        System.out.println(member);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         // Timestamp를 java.sql.Date로 변환합니다.
         Date date = new Date(timestamp.getTime());
@@ -65,7 +64,19 @@ public class BoardController {
         return "searchList";
     }
 
+    @GetMapping("/updatePost/{id}")
+    public String updatePostForm(@PathVariable("id") Long boardId, Model model){
+        model.addAttribute("board", boardService.updatePostForm(boardId));
+        return "updatePost";
+    }
 
+    @PostMapping("/update")
+    public String updatePost(MultipartFile file, @ModelAttribute BoardDto boardDto) throws IOException {
+        Date date = boardService.updatePostForm(boardDto.getBoardId()).getDate();
+        boardDto.setDate(date);
+        boardService.updatePost(boardDto, file);
+        return "redirect:/our/main";
+    }
 }
 
 

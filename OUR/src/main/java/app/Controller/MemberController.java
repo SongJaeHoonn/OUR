@@ -57,7 +57,7 @@ public class MemberController {
         if(loginResult != null){
             httpSession.setAttribute("loginAlias", loginResult.getAlias());
             httpSession.setAttribute("loginMemberId", loginResult.getMemberId());
-            httpSession.setMaxInactiveInterval(600);
+            httpSession.setMaxInactiveInterval(1800);
             return "redirect:/our/main";
         }else{
 

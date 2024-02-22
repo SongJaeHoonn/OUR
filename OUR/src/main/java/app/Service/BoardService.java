@@ -39,11 +39,23 @@ public class BoardService {
         boardRepository.save(Board.toBoard(boardDto));
     }
 
-    public void updatePost(BoardDto boardDto){
+    public BoardDto updatePostForm(Long boardId){
+        Optional<Board> optionalBoardEntity = boardRepository.findById(boardId);
+        return optionalBoardEntity.map(BoardDto::toBoardDto).orElse(null);
+    }
+
+    public void updatePost(BoardDto boardDto, MultipartFile file) throws IOException {
+        String projectPath = System.getProperty("user.dir") + "\\OUR\\src\\main\\resources\\static\\files";
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + file.getOriginalFilename();
+        File saveFile = new File(projectPath, fileName);
+        file.transferTo(saveFile);
+        boardDto.setFileName(fileName);
+        boardDto.setFilePath("/files/" + fileName);
         boardRepository.save(Board.toUpdateBoard(boardDto));
     }
 
-    public void deletePostByBoardId(Long boardId){
+    public void deletePostByBoardId(Long boardId) {
         boardRepository.deleteById(boardId);
     }
 

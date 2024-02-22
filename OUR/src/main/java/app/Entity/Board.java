@@ -54,6 +54,8 @@ public class Board {
         board.setText(boardDto.getText());
         board.setMember(boardDto.getMember());
         board.setDate(boardDto.getDate());
+        board.setFileName(boardDto.getFileName());
+        board.setFilePath(boardDto.getFilePath());
         return board;
     }
 
