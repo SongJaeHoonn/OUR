@@ -77,7 +77,16 @@
     <input type="text" id="head" name="head" required><br><br>
     <label for="text">내용</label><br>
     <textarea id="text" name="text" rows="4" cols="50" placeholder="내용을 입력하세요" required></textarea><br><br>
-    <input type="submit" value="작성하기">
+    <input type="submit" value="작성하기" onclick="succ()">
 </form>
+
+<script>
+    function succ(){
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('success')) {
+            alert("글이 성공적으로 작성되었습니다");
+        }
+    }
+</script>
 </body>
 </html>

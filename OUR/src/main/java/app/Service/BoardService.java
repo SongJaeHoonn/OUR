@@ -5,6 +5,7 @@ import app.Dto.MemberDto;
 import app.Entity.Board;
 import app.Entity.Member;
 import app.Repository.BoardRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +29,18 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     public void createPost(BoardDto boardDto, MultipartFile file) throws IOException {
-        String projectPath = System.getProperty("user.dir") + "\\OUR\\src\\main\\resources\\static\\files";
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid + "_" + file.getOriginalFilename();
-        File saveFile = new File(projectPath, fileName);
-        file.transferTo(saveFile);
-        boardDto.setFileName(fileName);
-        boardDto.setFilePath("/files/" + fileName);
+        if(!file.isEmpty()){
+            String projectPath = System.getProperty("user.dir") + "\\OUR\\src\\main\\resources\\static\\files";
+            UUID uuid = UUID.randomUUID();
+            String fileName = uuid + "_" + file.getOriginalFilename();
+            File saveFile = new File(projectPath, fileName);
+            file.transferTo(saveFile);
+            boardDto.setFileName(fileName);
+            boardDto.setFilePath("/files/" + fileName);
+        }else{
+            boardDto.setFileName(null);
+            boardDto.setFilePath(null);
+        }
 
         boardRepository.save(Board.toBoard(boardDto));
     }

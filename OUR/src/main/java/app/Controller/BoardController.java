@@ -31,6 +31,7 @@ public class BoardController {
     public String create(BoardDto boardDto, HttpSession session, MultipartFile file) throws IOException {
 
         String member = (String) session.getAttribute("loginMemberId");
+        boardDto.setMember(member);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         // Timestamp를 java.sql.Date로 변환합니다.
         Date date = new Date(timestamp.getTime());
@@ -38,7 +39,6 @@ public class BoardController {
         boardDto.setDate(date);
         boardService.createPost(boardDto, file);
 
-        // 생성된 게시물의 상세 정보 페이지로 리디렉션합니다.
         return "redirect:/our/main";
     }
 
@@ -75,6 +75,12 @@ public class BoardController {
         Date date = boardService.updatePostForm(boardDto.getBoardId()).getDate();
         boardDto.setDate(date);
         boardService.updatePost(boardDto, file);
+        return "redirect:/our/main";
+    }
+
+    @GetMapping("/deletePost/{id}")
+    public String deletePost(@PathVariable("id") Long boardId){
+        boardService.deletePostByBoardId(boardId);
         return "redirect:/our/main";
     }
 }
