@@ -70,6 +70,15 @@ public class MemberService {
         }
     }
 
+    public Member findByMemberId(String memberId){
+        Optional<Member> member = memberRepository.findByMemberId(memberId);
+        if(member.isPresent()){
+            return member.get();
+        }else{
+            return null;
+        }
+    }
+
     public void update(MemberDto memberDto) {
         memberRepository.save(Member.toUpdateMember(memberDto));
     }

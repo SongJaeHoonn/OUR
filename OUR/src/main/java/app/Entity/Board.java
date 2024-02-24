@@ -1,10 +1,12 @@
 package app.Entity;
 
 import app.Dto.BoardDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,6 +36,9 @@ public class Board {
 
     @Column
     private String filePath;
+
+    @OneToMany(mappedBy = "board")
+    private List<Comment> reply;
 
     public static Board toBoard(BoardDto boardDto){
         Board board = new Board();

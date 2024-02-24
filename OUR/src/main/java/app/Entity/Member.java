@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -25,6 +27,8 @@ public class Member {
     private String password;
     @Column(nullable = false, unique = true)
     private String alias;
+    @OneToMany(mappedBy = "member")
+    private List<Comment> reply;
 
     public static Member toMember(MemberDto memberDto){
         Member member = new Member();

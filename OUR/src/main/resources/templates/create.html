@@ -82,9 +82,8 @@
 
 <script>
     function succ(){
-        var urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('success')) {
-            alert("글이 성공적으로 작성되었습니다");
+        if(text.value !== null && head.value !== null){
+            alert("글 작성이 완료되었습니다");
         }
     }
 </script>
