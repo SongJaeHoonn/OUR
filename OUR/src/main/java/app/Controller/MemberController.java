@@ -52,12 +52,11 @@ public class MemberController {
     }
 
     @PostMapping ("/our")
-    public String login(@ModelAttribute MemberDto memberDto, HttpSession httpSession){
+    public String login(@ModelAttribute MemberDto memberDto, HttpSession httpSession, Model model){
         MemberDto loginResult = memberService.login(memberDto);
         if(loginResult != null){
             httpSession.setAttribute("loginAlias", loginResult.getAlias());
             httpSession.setAttribute("loginMemberId", loginResult.getMemberId());
-            httpSession.setMaxInactiveInterval(1800);
             return "redirect:/our/main";
         }else{
 

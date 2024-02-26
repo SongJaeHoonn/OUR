@@ -124,7 +124,7 @@
   </style>
 </head>
 <body>
-<p th:text="${session.loginAlias}" style="background-color: black; color: white;"></p>
+<p style="background-color: black; color: white;"><span th:text="${session.loginAlias}"></span></p>
 <form action="/our/search" method="GET">
   <div class="search">
     <input type="text" name="query" placeholder="검색어 입력">

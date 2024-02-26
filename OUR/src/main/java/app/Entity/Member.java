@@ -27,7 +27,7 @@ public class Member {
     private String password;
     @Column(nullable = false, unique = true)
     private String alias;
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comment> reply;
 
     public static Member toMember(MemberDto memberDto){
