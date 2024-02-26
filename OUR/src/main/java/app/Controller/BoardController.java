@@ -1,6 +1,11 @@
 package app.Controller;
 import app.Dto.BoardDto;
+import app.Entity.Board;
+import app.Entity.Comment;
+import app.Entity.Member;
 import app.Service.BoardService;
+import app.Service.CommentService;
+import app.Service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,7 +25,9 @@ import java.util.Objects;
 @RequestMapping("/our")
 public class BoardController {
 
+    private final MemberService memberService;
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @GetMapping("/create")
     public String createForm() {
@@ -31,7 +38,8 @@ public class BoardController {
     public String create(BoardDto boardDto, HttpSession session, MultipartFile file) throws IOException {
 
         String member = (String) session.getAttribute("loginMemberId");
-        boardDto.setMember(member);
+        Member membering = memberService.findByMemberId(member);
+        boardDto.setMember(membering);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         // Timestamp를 java.sql.Date로 변환합니다.
         Date date = new Date(timestamp.getTime());
@@ -52,8 +60,9 @@ public class BoardController {
     @GetMapping("/view")
     public String view(@RequestParam("id") Long boardId, Model model){
         BoardDto boardDto = boardService.findById(boardId);
-
+        List<Comment> commentList = commentService.commentList(Board.toBoard(boardDto));
         model.addAttribute("board", boardDto);
+        model.addAttribute("commentList", commentList);
         return "view";
     }
 

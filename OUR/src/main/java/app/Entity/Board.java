@@ -25,8 +25,9 @@ public class Board {
     @Column(nullable = false)
     private String text;
 
-    @JoinColumn(name = "member", referencedColumnName = "memberId")
-    private String member;
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private Member member;
 
     @Column(nullable = false)
     private Date date;
